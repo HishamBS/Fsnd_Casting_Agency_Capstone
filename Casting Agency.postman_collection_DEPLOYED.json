@@ -1,0 +1,993 @@
+{
+	"info": {
+		"_postman_id": "51aad130-b803-42d0-93e1-fa93a8aae84a",
+		"name": "Casting Agency",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Casting Assistance ",
+			"item": [
+				{
+					"name": "GET : ALL MOVIES",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "aa325923-7793-4614-a29b-18f52e920d7c",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://hbs-casting-agency.herokuapp.com/movies",
+							"protocol": "https",
+							"host": [
+								"hbs-casting-agency",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"movies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET : ALL ACTORS",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d7f3e839-9437-49f0-99a0-924e14531d0b",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://hbs-casting-agency.herokuapp.com/actors",
+							"protocol": "https",
+							"host": [
+								"hbs-casting-agency",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"actors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET : ACTOR BY ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "364db4d5-a4e8-4dd8-9502-1b3cd028fcc7",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://hbs-casting-agency.herokuapp.com/actors/4",
+							"protocol": "https",
+							"host": [
+								"hbs-casting-agency",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"actors",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET : MOVIE BY ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6492cefa-dbe6-4efd-b851-49c58eae2021",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://hbs-casting-agency.herokuapp.com/movies/1",
+							"protocol": "https",
+							"host": [
+								"hbs-casting-agency",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"movies",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST : NEW ACTOR",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "212c61ed-dba6-4d2a-b41e-1a8d1e3f6cfe",
+								"exec": [
+									"pm.test(\"Status code is 403\", function () {",
+									"    pm.response.to.have.status(403);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\":\"test actor\",\n\t\"age\":\"28\",\n\t\"gender\":\"male\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://hbs-casting-agency.herokuapp.com/actors",
+							"protocol": "https",
+							"host": [
+								"hbs-casting-agency",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"actors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PATCH : AN EXISTING MOVIE BY ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3adfd50a-b292-40b3-9af6-20efc5441b9d",
+								"exec": [
+									"pm.test(\"Status code is 403\", function () {",
+									"    pm.response.to.have.status(403);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"title\":\"p4\",\n\t\"release_date\":\"12/13/2012\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://hbs-casting-agency.herokuapp.com/movies/4",
+							"protocol": "https",
+							"host": [
+								"hbs-casting-agency",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"movies",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PATCH : AN EXISTING ACTOR BY ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "84bf9332-a7f9-4944-842b-03326ebe3ee0",
+								"exec": [
+									"pm.test(\"Status code is 403\", function () {",
+									"    pm.response.to.have.status(403);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\":\"testing patch\",\n\t\"age\":\"29\",\n\t\"gender\":\"\",\n\t\"movie_id\":4\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://hbs-casting-agency.herokuapp.com/actors/4",
+							"protocol": "https",
+							"host": [
+								"hbs-casting-agency",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"actors",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE : ACTOR BY ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a9451cb4-7ba3-48de-ba75-5851c1928d31",
+								"exec": [
+									"pm.test(\"Status code is 403\", function () {",
+									"    pm.response.to.have.status(403);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://hbs-casting-agency.herokuapp.com/actors/9",
+							"protocol": "https",
+							"host": [
+								"hbs-casting-agency",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"actors",
+								"9"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "ONLY CAN GET MOVIES AND ACTORS",
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkNsX1hreUs3blg0MTJQWmIyYXA3UyJ9.eyJpc3MiOiJodHRwczovL2hoYnMuZXUuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDVmOTM3ZTQ4OWI4ODIyMDA2ZWUwMDIxYiIsImF1ZCI6ImNhc3RpbmdfYWdlbmN5IiwiaWF0IjoxNjAzNTc4MzA2LCJleHAiOjE2MDM2NjQ3MDYsImF6cCI6ImNjVGhma3JSVDB5aFNpaUVMUU5Mc2VSaHlqWjZWTGwwIiwic2NvcGUiOiIiLCJwZXJtaXNzaW9ucyI6WyJnZXQ6YWN0b3JzIiwiZ2V0Om1vdmllcyJdfQ.iy4SlaRD_VFHTj6Mp8MGVEjic6YT6Hx8D-8P_dkluhNElLQU06pj2bAXgzUIctVeBjnAVwTZr1VwLnbSQD7-iP4PHFqq35SbIasOcGu5iCiJD2fKihbJFhurLF13JM0qabjZjfpiHy3YmVH9hOaImFN7rCkCiK1eNBYK7ThMglHM-KWHg-SUC8RsokyyB-04FmSxQ9cwJKdFxViqMmcuiVy3Q0jaD5ldKeHhL-KpmAzv1GoRD6AwVlT21my5R44Gn6jGR9K35S9mdKUzcs5WablKhMbDJB99DkJWxAjtQu9klG1ukI1j7w1pic_ew74UuzPRa0NbaJEB2yUraRfW3A",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "adc58996-8918-4a92-8265-07858698677b",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "f15d0511-df64-4668-90cf-8f8b7d319205",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Casting Director ",
+			"item": [
+				{
+					"name": "GET : ALL MOVIES",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5fcf1707-50f2-45c7-afed-b4910c98743e",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://hbs-casting-agency.herokuapp.com/movies",
+							"protocol": "https",
+							"host": [
+								"hbs-casting-agency",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"movies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET : ALL ACTORS",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b914af9f-77a8-450d-9b32-c4ef3c65d1cc",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://hbs-casting-agency.herokuapp.com/actors",
+							"protocol": "https",
+							"host": [
+								"hbs-casting-agency",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"actors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET : ACTOR BY ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b5aff3f6-61e2-48b2-9224-e4c0a7e34720",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://hbs-casting-agency.herokuapp.com/actors/4",
+							"protocol": "https",
+							"host": [
+								"hbs-casting-agency",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"actors",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET : MOVIE BY ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "416a2eb8-e3c0-4564-b829-0e4fc1bfa4cb",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://hbs-casting-agency.herokuapp.com/movies/1",
+							"protocol": "https",
+							"host": [
+								"hbs-casting-agency",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"movies",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST : NEW ACTOR",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a54c515e-f4a7-4566-8a34-889247d76108",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\":\"test actor\",\n\t\"age\":\"28\",\n\t\"gender\":\"male\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://hbs-casting-agency.herokuapp.com/actors",
+							"protocol": "https",
+							"host": [
+								"hbs-casting-agency",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"actors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PATCH : AN EXISTING MOVIE BY ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "fb9c01a8-a646-4cf8-ac11-3f7f342feccc",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"title\":\"p4\",\n\t\"release_date\":\"12/13/2012\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://hbs-casting-agency.herokuapp.com/movies/6",
+							"protocol": "https",
+							"host": [
+								"hbs-casting-agency",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"movies",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PATCH : AN EXISTING ACTOR BY ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1f5602a5-7218-44c1-8933-51fc0f0f2393",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\":\"testing patch\",\n\t\"age\":\"29\",\n\t\"gender\":\"\",\n\t\"movie_id\":6\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://hbs-casting-agency.herokuapp.com/actors/4",
+							"protocol": "https",
+							"host": [
+								"hbs-casting-agency",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"actors",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE : ACTOR BY ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "66877dc2-0e7d-4b8f-9b21-4fc5c1ae48d0",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://hbs-casting-agency.herokuapp.com/actors/9",
+							"protocol": "https",
+							"host": [
+								"hbs-casting-agency",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"actors",
+								"9"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "All permissions a Casting Assistant has and…\nAdd or delete an actor from the database\nModify actors or movies",
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkNsX1hreUs3blg0MTJQWmIyYXA3UyJ9.eyJpc3MiOiJodHRwczovL2hoYnMuZXUuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDVmOTQxNzhhODg4NzA4MDA3MGZkYTI2MyIsImF1ZCI6ImNhc3RpbmdfYWdlbmN5IiwiaWF0IjoxNjAzNTc4NDQxLCJleHAiOjE2MDM2NjQ4NDEsImF6cCI6ImNjVGhma3JSVDB5aFNpaUVMUU5Mc2VSaHlqWjZWTGwwIiwic2NvcGUiOiIiLCJwZXJtaXNzaW9ucyI6WyJkZWxldGU6YWN0b3IiLCJnZXQ6YWN0b3JzIiwiZ2V0Om1vdmllcyIsInBhdGNoOmFjdG9yIiwicGF0Y2g6bW92aWUiLCJwb3N0OmFjdG9yIl19.NyUgXL_SbYIVdu1Y2Pwqk1RBc8Gp9ea0KGX6iF9qWiOz7oeNRRJTBDmukkCeNE-T9PCtvq-Pk5RHgW_GJBeSxgRZDltIwPzfxhigoMWitGrl-8fZde-KBstB0le4PFJsQ_x2oAzOGe-VOoyB1boyzHn0896Do5OwFUg64ReVhJTN8EHkBf5lgBSp0bmifQZqBvPtUtcfXytAnukzTyfGofcEWEg2DbEhwpr8B1Brd3RnhN9URLT2ZIIm4Fl73m26e2bjlozpbNtSaSBCl90-fJpFkhU-z3JvcTlfEK399jzjf9fXckpL7kxSZmPtBw93vi-RuAh33jieevxVX5LERg",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "2e32056c-02b7-41ff-a3fe-ddd80acee7ca",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "a0b49a0a-94fe-41bf-98a4-85518688ba3e",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Executive Producer",
+			"item": [
+				{
+					"name": "GET : ALL MOVIES",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://hbs-casting-agency.herokuapp.com/movies",
+							"protocol": "https",
+							"host": [
+								"hbs-casting-agency",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"movies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET : ALL ACTORS",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://hbs-casting-agency.herokuapp.com/actors",
+							"protocol": "https",
+							"host": [
+								"hbs-casting-agency",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"actors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET : ACTOR BY ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://hbs-casting-agency.herokuapp.com/actors/4",
+							"protocol": "https",
+							"host": [
+								"hbs-casting-agency",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"actors",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET : MOVIE BY ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://hbs-casting-agency.herokuapp.com/movies/1",
+							"protocol": "https",
+							"host": [
+								"hbs-casting-agency",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"movies",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST : NEW MOVIE",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"title\":\"testing api\",\n\t\"release_date\":\"2022/12/12\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://hbs-casting-agency.herokuapp.com/movies",
+							"protocol": "https",
+							"host": [
+								"hbs-casting-agency",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"movies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST : NEW ACTOR",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\":\"test actor\",\n\t\"age\":\"28\",\n\t\"gender\":\"male\",\n\t\"movie_id\":4\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://hbs-casting-agency.herokuapp.com/actors",
+							"protocol": "https",
+							"host": [
+								"hbs-casting-agency",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"actors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PATCH : AN EXISTING MOVIE BY ID",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"title\":\"p4\",\n\t\"release_date\":\"12/13/2012\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://hbs-casting-agency.herokuapp.com/movies/4",
+							"protocol": "https",
+							"host": [
+								"hbs-casting-agency",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"movies",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PATCH : AN EXISTING ACTOR BY ID",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\":\"testing patch\",\n\t\"age\":\"29\",\n\t\"gender\":\"\",\n\t\"movie_id\":4\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://hbs-casting-agency.herokuapp.com/actors/4",
+							"protocol": "https",
+							"host": [
+								"hbs-casting-agency",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"actors",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE : MOVIE BY ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://hbs-casting-agency.herokuapp.com/movies/5",
+							"protocol": "https",
+							"host": [
+								"hbs-casting-agency",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"movies",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE : ACTOR BY ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://hbs-casting-agency.herokuapp.com/actors/10",
+							"protocol": "https",
+							"host": [
+								"hbs-casting-agency",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"actors",
+								"10"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "All permissions a Casting Director has and…\nAdd or delete a movie from the database",
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkNsX1hreUs3blg0MTJQWmIyYXA3UyJ9.eyJpc3MiOiJodHRwczovL2hoYnMuZXUuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDVmOTQxODYyMzM2YTg4MDA3N2RkOWE1ZCIsImF1ZCI6ImNhc3RpbmdfYWdlbmN5IiwiaWF0IjoxNjAzNTc4NTIwLCJleHAiOjE2MDM2NjQ5MjAsImF6cCI6ImNjVGhma3JSVDB5aFNpaUVMUU5Mc2VSaHlqWjZWTGwwIiwic2NvcGUiOiIiLCJwZXJtaXNzaW9ucyI6WyJkZWxldGU6YWN0b3IiLCJkZWxldGU6bW92aWUiLCJnZXQ6YWN0b3JzIiwiZ2V0Om1vdmllcyIsInBhdGNoOmFjdG9yIiwicGF0Y2g6bW92aWUiLCJwb3N0OmFjdG9yIiwicG9zdDptb3ZpZSJdfQ.bOfvj6KYbrwaoWujjX9XoXmUmZTOlhQK46MdP4fKSa3aDi6oC403eAJPElab4OYGVJPOhDbv27MPbduLAnG4nHNmt4kaw9UERX7UtQioi42ldagjL0jkY878674n88wFXnl0LjUQECo8rkUBXcZaomHIR7CyJsdQ1h_0iA_u7kEG7Br8VlXxLs5EwoTpMsaN8erO8GG6uEXorH6eLOf9OWXx-sGhEAxFymj_BtcMhg_Q-ufX-Srrn9M_orlvwoAGMBcnvodAt6BfT0koiy2P7dS1tSFeA4nGiQOCdB1ylIuKHsJ_IdE5VyFA_NG8MNjBoXQvoD7RvsWEi80w6zQ4Tw",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "74d4d011-e71a-4987-9e01-e95595ffbbdd",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "5af99849-b08a-47ec-8775-d250442ec53f",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
