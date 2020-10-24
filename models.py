@@ -17,11 +17,7 @@ def setup_db(app):
     migrate = Migrate(app, db)
     db.init_app(app)
 
-    # db.init_app(app)
-    # db.create_all()  #
 
-
-# migrate = Migrate(app, db) # this
 class Movie(db.Model):
     __tablename__ = 'movies'
 
