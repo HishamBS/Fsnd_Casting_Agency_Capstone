@@ -4,6 +4,7 @@ from sqlalchemy import Column, String, Integer, DateTime
 from flask_migrate import Migrate
 import json
 from dotenv import load_dotenv
+from sqlalchemy.sql.sqltypes import Date
 load_dotenv('.env')
 
 
@@ -26,7 +27,7 @@ class Movie(db.Model):
 
     id = Column(Integer, primary_key=True)
     title = Column(String, nullable=False)
-    release_date = Column(DateTime)
+    release_date = Column(Date)
     actors = db.relationship('Actor', backref='movie', lazy=True)
 
     def __init__(self, title, release_date):

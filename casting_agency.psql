@@ -1,0 +1,212 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 13.0
+-- Dumped by pg_dump version 13.0
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- Name: actors; Type: TABLE; Schema: public; Owner: macbookpro
+--
+
+CREATE TABLE public.actors (
+    id integer NOT NULL,
+    name character varying NOT NULL,
+    age integer,
+    gender character varying,
+    movie_id integer
+);
+
+
+ALTER TABLE public.actors OWNER TO macbookpro;
+
+--
+-- Name: actors_id_seq; Type: SEQUENCE; Schema: public; Owner: macbookpro
+--
+
+CREATE SEQUENCE public.actors_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.actors_id_seq OWNER TO macbookpro;
+
+--
+-- Name: actors_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: macbookpro
+--
+
+ALTER SEQUENCE public.actors_id_seq OWNED BY public.actors.id;
+
+
+--
+-- Name: alembic_version; Type: TABLE; Schema: public; Owner: macbookpro
+--
+
+CREATE TABLE public.alembic_version (
+    version_num character varying(32) NOT NULL
+);
+
+
+ALTER TABLE public.alembic_version OWNER TO macbookpro;
+
+--
+-- Name: movies; Type: TABLE; Schema: public; Owner: macbookpro
+--
+
+CREATE TABLE public.movies (
+    id integer NOT NULL,
+    title character varying NOT NULL,
+    release_date date
+);
+
+
+ALTER TABLE public.movies OWNER TO macbookpro;
+
+--
+-- Name: movies_id_seq; Type: SEQUENCE; Schema: public; Owner: macbookpro
+--
+
+CREATE SEQUENCE public.movies_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.movies_id_seq OWNER TO macbookpro;
+
+--
+-- Name: movies_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: macbookpro
+--
+
+ALTER SEQUENCE public.movies_id_seq OWNED BY public.movies.id;
+
+
+--
+-- Name: actors id; Type: DEFAULT; Schema: public; Owner: macbookpro
+--
+
+ALTER TABLE ONLY public.actors ALTER COLUMN id SET DEFAULT nextval('public.actors_id_seq'::regclass);
+
+
+--
+-- Name: movies id; Type: DEFAULT; Schema: public; Owner: macbookpro
+--
+
+ALTER TABLE ONLY public.movies ALTER COLUMN id SET DEFAULT nextval('public.movies_id_seq'::regclass);
+
+
+--
+-- Data for Name: actors; Type: TABLE DATA; Schema: public; Owner: macbookpro
+--
+
+COPY public.actors (id, name, age, gender, movie_id) FROM stdin;
+2	Denzel Washington	50	Male	1
+1	Tom Hanks	55	Male	2
+3	Leonardo DiCaprio	52	Male	3
+4	Kate Winslet	48	Female	3
+5	Tom Cruise	58	Male	4
+9	Anna Kendrick	33	Female	5
+6	Anne Hathaway	38	Female	6
+10	Scarlett Johansson	35	Female	7
+7	Ashton Kutcher	40	Male	8
+8	Mila Kunis	37	Female	8
+\.
+
+
+--
+-- Data for Name: alembic_version; Type: TABLE DATA; Schema: public; Owner: macbookpro
+--
+
+COPY public.alembic_version (version_num) FROM stdin;
+2db920aa0226
+\.
+
+
+--
+-- Data for Name: movies; Type: TABLE DATA; Schema: public; Owner: macbookpro
+--
+
+COPY public.movies (id, title, release_date) FROM stdin;
+1	The Equalizer	2014-09-22
+2	Cast Away	2000-12-07
+3	Titanic	1997-11-17
+4	Mission: Impossible 7\t	2021-11-19
+5	Pitch Perfect 3	2017-11-30
+6	The Devil Wears Prada	2006-06-29
+7	Black Widow	2020-04-29
+8	Red Nose Day	2017-03-24
+\.
+
+
+--
+-- Name: actors_id_seq; Type: SEQUENCE SET; Schema: public; Owner: macbookpro
+--
+
+SELECT pg_catalog.setval('public.actors_id_seq', 10, true);
+
+
+--
+-- Name: movies_id_seq; Type: SEQUENCE SET; Schema: public; Owner: macbookpro
+--
+
+SELECT pg_catalog.setval('public.movies_id_seq', 8, true);
+
+
+--
+-- Name: actors actors_pkey; Type: CONSTRAINT; Schema: public; Owner: macbookpro
+--
+
+ALTER TABLE ONLY public.actors
+    ADD CONSTRAINT actors_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: alembic_version alembic_version_pkc; Type: CONSTRAINT; Schema: public; Owner: macbookpro
+--
+
+ALTER TABLE ONLY public.alembic_version
+    ADD CONSTRAINT alembic_version_pkc PRIMARY KEY (version_num);
+
+
+--
+-- Name: movies movies_pkey; Type: CONSTRAINT; Schema: public; Owner: macbookpro
+--
+
+ALTER TABLE ONLY public.movies
+    ADD CONSTRAINT movies_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: actors actors_movie_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: macbookpro
+--
+
+ALTER TABLE ONLY public.actors
+    ADD CONSTRAINT actors_movie_id_fkey FOREIGN KEY (movie_id) REFERENCES public.movies(id);
+
+
+--
+-- PostgreSQL database dump complete
+--
+

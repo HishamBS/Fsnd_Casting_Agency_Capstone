@@ -2,29 +2,33 @@ import os
 import unittest
 import json
 from flask_sqlalchemy import SQLAlchemy
-
 from app import app
-from models import setup_db, Actor, Movie
+
+CASTING_ASSISTANT_TOKEN = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkNsX1hreUs3blg0MTJQWmIyYXA3UyJ9.eyJpc3MiOiJodHRwczovL2hoYnMuZXUuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDVmOTM3ZTQ4OWI4ODIyMDA2ZWUwMDIxYiIsImF1ZCI6ImNhc3RpbmdfYWdlbmN5IiwiaWF0IjoxNjAzNTQzNDIwLCJleHAiOjE2MDM2Mjk4MjAsImF6cCI6ImNjVGhma3JSVDB5aFNpaUVMUU5Mc2VSaHlqWjZWTGwwIiwic2NvcGUiOiIiLCJwZXJtaXNzaW9ucyI6WyJnZXQ6YWN0b3JzIiwiZ2V0Om1vdmllcyJdfQ.cMN_Qc6pc9x857FRV6Cf4A5fXfWgGtWvkP-EnK3RuCIm_xorkQD6S0RTxJzU3QTJjIy8G6BwzccQTEGf0D5nRDFJqZss9Dli9OxBi1DruRXJZIHgOofsiKz1V39VVlF6I5l21ay8KCx-gqQiDidWZWwakrLuhqRHnI5b8upjmDM2gM_SnTR_sf-qvNz8zhPfnZ9SdmfY4NWx-CevFIZg4-OzGYQY349a20mOLTfuuP1Jz8Vvk_ju0y8QEN9rtnl6G1LysOyVjwb3NzNjW4xOF1ThA-ZkP3gYqIQK-54i34F-p9oWYhvvAy9M-F5kXkdDQlQcC0M_pvypm8cSImRzDw"
+CASTING_DIRECTOR_TOKEN = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkNsX1hreUs3blg0MTJQWmIyYXA3UyJ9.eyJpc3MiOiJodHRwczovL2hoYnMuZXUuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDVmOTQxNzhhODg4NzA4MDA3MGZkYTI2MyIsImF1ZCI6ImNhc3RpbmdfYWdlbmN5IiwiaWF0IjoxNjAzNTYyMjE4LCJleHAiOjE2MDM2NDg2MTgsImF6cCI6ImNjVGhma3JSVDB5aFNpaUVMUU5Mc2VSaHlqWjZWTGwwIiwic2NvcGUiOiIiLCJwZXJtaXNzaW9ucyI6WyJkZWxldGU6YWN0b3IiLCJnZXQ6YWN0b3JzIiwiZ2V0Om1vdmllcyIsInBhdGNoOmFjdG9yIiwicGF0Y2g6bW92aWUiLCJwb3N0OmFjdG9yIl19.lplE8xl5HIP0g5GZGDhLvDhLZoF39BYjGaepPr1io3_SnZks6rF4J3tMGyp5ha2pV-baBD5P_o6fWPAW9tUaxeumw0KdnC9erT1AFRqqEY1c0VH6vvNDLWOb1dHTDhD8Pal6uih-yzS-gmXuhOTWcoO3E0I-l6aUhYIFvoBkRtdwgiahDPeOnCg84ZrdMn-P3q56_sEn_krKtNaSPDKPT5dwhz3CWePB4YQ_u5lzAnI1XSaJdK0vQ6rv1wSLejl2O1y5z1gWRj_imB5lECDdnYDE3z0jsDwNh6nce_XrA9R9FF2pCgvoQDZTjUFy4u5Ij0k5LWwzSd1hDLf_SU-MUg"
+EXECUTIVE_PRODUCER_TOKEN = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkNsX1hreUs3blg0MTJQWmIyYXA3UyJ9.eyJpc3MiOiJodHRwczovL2hoYnMuZXUuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDVmOTQxODYyMzM2YTg4MDA3N2RkOWE1ZCIsImF1ZCI6ImNhc3RpbmdfYWdlbmN5IiwiaWF0IjoxNjAzNTQxNDQzLCJleHAiOjE2MDM2Mjc4NDMsImF6cCI6ImNjVGhma3JSVDB5aFNpaUVMUU5Mc2VSaHlqWjZWTGwwIiwic2NvcGUiOiIiLCJwZXJtaXNzaW9ucyI6WyJkZWxldGU6YWN0b3IiLCJkZWxldGU6bW92aWUiLCJnZXQ6YWN0b3JzIiwiZ2V0Om1vdmllcyIsInBhdGNoOmFjdG9yIiwicGF0Y2g6bW92aWUiLCJwb3N0OmFjdG9yIiwicG9zdDptb3ZpZSJdfQ.hoB74StW51bAnLrWdKpKHuhJISARh8igJ6YTupEVO3K0k8aV7EP4Ry1xqumcGwXKPIyVhcLUFmLFy_9ah97x0RjlbbDtPnXovdSD9T79XHQHoN27a6Gkm3GYps5eHtu3T2_vmZjevOqNLNpUUOadwXRWqxJf3LRMHuwI7wqCJWu8zWu8MUjkq8cA4z4nVhlw_iCqIRdp-nrCpELJyIpxGr09BhppmcjNXwQHomEWFglH7yhEXka97ITI3UbDkU0pqbZ5TxaXjvXS6VAxFdcEjzW7_EPoJbeKjlpWSbs713lf_R9ZobKDfX9_TX-sMBPDlncdPa8QfO5Srpx2gjSewg"
+
+DUMMY_MOVIE = {
+    "title": "testing movie",
+    "release_date": "2022/12/12"
 
 
-class TriviaTestCase(unittest.TestCase):
-    """This class represents the trivia test case"""
 
+}
+DUMMY_ACTOR = {
+    "name": "test actor",
+    "age": "28",
+    "gender": "male"
+
+}
+
+
+class CastingAgencyTests(unittest.TestCase):
     def setUp(self):
         """Define test variables and initialize app."""
-        self.app = create_app()
+        self.app = app
         self.client = self.app.test_client
-        self.database_name = "trivia_test"
-        self.database_path = "postgres://{}/{}".format(
-            'localhost:5432', self.database_name)
-        setup_db(self.app, self.database_path)
-        self.dummy_question = {
-            'question': 'New Question',
-            'answer': 'No Answer',
-            'difficulty': 2,
-            'category': 2
-        }
-
+        app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://macbookpro@localhost:5432/casting_agency_tests'
         # binds the app to the current context
         with self.app.app_context():
             self.db = SQLAlchemy()
@@ -36,131 +40,175 @@ class TriviaTestCase(unittest.TestCase):
         """Executed after reach test"""
         pass
 
-    """
-    DONE 14 tests all pass
-    Write at least one test for each test for successful operation and for expected errors.
-    """
-
-    def test_get_paginated_questions(self):
-        res = self.client().get('/questions')
+    def test_get_all_movies(self):
+        res = self.client().get(
+            '/movies', headers={'Authorization': 'Bearer {}'.format(CASTING_ASSISTANT_TOKEN)})
         data = json.loads(res.data)
         self.assertEqual(res.status_code, 200)
         self.assertEqual(data['success'], True)
-        self.assertEqual(data['total_questions'], len(Question.query.all()))
-        self.assertEqual(len(data['questions']), 10)
-        self.assertTrue(len(data['categories']))
+        self.assertEqual(len(data['movies']), data['movies_count'])
 
-    def test_404_send_beyond_page_limit(self):
-        res = self.client().get('/questions?page=20')
-        data = json.loads(res.data)
-
-        self.assertEqual(res.status_code, 404)
-        self.assertEqual(data['success'], False)
-        self.assertEqual(data['message'], 'resource not found')
-
-    def test_get_all_categories(self):
-        res = self.client().get('/categories')
-        data = json.loads(res.data)
-        self.assertEqual(res.status_code, 200)
-        self.assertEqual(data['success'], True)
-        self.assertEqual(len(data['categories']), len(Category.query.all()))
-
-    def test_404_send_beyond_category_limit(self):
-        res = self.client().get('/categories/7')
+    def test_404_send_beyond_movie_limit(self):
+        res = self.client().get(
+            '/movies/9999', headers={'Authorization': 'Bearer {}'.format(CASTING_ASSISTANT_TOKEN)})
         data = json.loads(res.data)
         self.assertEqual(res.status_code, 404)
         self.assertEqual(data['success'], False)
         self.assertEqual(data['message'], 'resource not found')
 
-    def test_get_all_questions_in_category(self):
-        res = self.client().get('/categories/3/questions')
+    def test_get_all_actors(self):
+        res = self.client().get(
+            '/actors', headers={'Authorization': 'Bearer {}'.format(CASTING_ASSISTANT_TOKEN)})
         data = json.loads(res.data)
         self.assertEqual(res.status_code, 200)
         self.assertEqual(data['success'], True)
-        self.assertEqual(len(data['questions']), len(
-            Question.query.filter_by(category=3).all()))
-        self.assertTrue(data['total_questions'])
-        self.assertEqual(data['current_category'], "Geography")
+        self.assertEqual(len(data['actors']), data['actors_count'])
 
-    def test_400_send_category_zero(self):
-        res = self.client().get('/categories/0/questions')
+    def test_404_send_beyond_actors_limit(self):
+        res = self.client().get(
+            '/actors/9999', headers={'Authorization': 'Bearer {}'.format(CASTING_ASSISTANT_TOKEN)})
         data = json.loads(res.data)
-        self.assertEqual(res.status_code, 400)
-        self.assertEqual(data["success"], False)
-        self.assertEqual(data["message"], "bad request")
+        self.assertEqual(res.status_code, 404)
+        self.assertEqual(data['success'], False)
+        self.assertEqual(data['message'], 'resource not found')
 
-    def test_create_question(self):
-        total_questions_before = (len(Question.query.all()))
-        res = self.client().post('/questions/new', json=self.dummy_question)
+    def test_create_movie(self):
+        res = self.client().post('/movies',
+                                 headers={'Authorization': 'Bearer {}'.format(EXECUTIVE_PRODUCER_TOKEN)}, json=DUMMY_MOVIE)
         data = json.loads(res.data)
-        print(data)
         self.assertEqual(res.status_code, 200)
         self.assertEqual(data["success"], True)
-        self.assertEqual(len(Question.query.all()),
-                         total_questions_before+1)
 
-    def test_422_send_wrong_json(self):
-        wrong_question = "hi"
-        res = self.client().post('/questions/new', json=wrong_question)
+    def test_create_unauthorized_movie(self):
+        res = self.client().post('/movies',
+                                 headers={'Authorization': 'Bearer {}'.format(CASTING_ASSISTANT_TOKEN)}, json=DUMMY_MOVIE)
+        data = json.loads(res.data)
+        self.assertEqual(res.status_code, 403)
+        self.assertEqual(data["success"], False)
+        self.assertEqual(data['message'], 'Permission not found.')
+
+    def test_422_wrong_movie_format(self):
+        res = self.client().post('/movies',
+                                 headers={'Authorization': 'Bearer {}'.format(EXECUTIVE_PRODUCER_TOKEN)}, json={"foo": "bar"})
         data = json.loads(res.data)
         self.assertEqual(res.status_code, 422)
         self.assertEqual(data["success"], False)
-        self.assertEqual(data["message"], "unprocessable")
+        self.assertEqual(data['message'], 'unprocessable')
 
-    def test_search(self):
-        res = self.client().post('/questions/search',
-                                 json={'searchTerm': 'what'})
+    def test_create_actor(self):
+        res = self.client().post('/actors',
+                                 headers={'Authorization': 'Bearer {}'.format(CASTING_DIRECTOR_TOKEN)}, json=DUMMY_ACTOR)
         data = json.loads(res.data)
-
         self.assertEqual(res.status_code, 200)
-        self.assertEqual(data['success'], True)
-        self.assertIsNotNone(data['questions'])
-        self.assertIsNotNone(data['total_questions'])
+        self.assertEqual(data["success"], True)
 
-    def test_400_json_missing_key(self):
-        res = self.client().post('/questions/search', json={"foo": "bar"})
+    def test_create_unauthorized_actor(self):
+        res = self.client().post('/actors',
+                                 headers={'Authorization': 'Bearer {}'.format(CASTING_ASSISTANT_TOKEN)}, json=DUMMY_ACTOR)
         data = json.loads(res.data)
-        self.assertEqual(res.status_code, 400)
+        self.assertEqual(res.status_code, 403)
         self.assertEqual(data["success"], False)
-        self.assertEqual(data["message"], "bad request")
+        self.assertEqual(data['message'], 'Permission not found.')
 
-    def test_delete_question(self):
-        to_be_deleted_question = Question(question='FOOOOO', answer='BAAAAAAR',
-                                          difficulty=3, category=4)
-        to_be_deleted_question.insert()
-        res = self.client().delete('/questions/{}'.format(to_be_deleted_question.id))
+    def test_422_wrong_actor_format(self):
+        res = self.client().post('/actors',
+                                 headers={'Authorization': 'Bearer {}'.format(CASTING_DIRECTOR_TOKEN)}, json={"foo": "bar"})
         data = json.loads(res.data)
+        self.assertEqual(res.status_code, 422)
+        self.assertEqual(data["success"], False)
+        self.assertEqual(data['message'], 'unprocessable')
 
-        question = Question.query.filter(
-            Question.id == to_be_deleted_question.id).one_or_none()
-
+    def test_update_movie(self):
+        res = self.client().patch('/movies/9',
+                                  headers={'Authorization': 'Bearer {}'.format(EXECUTIVE_PRODUCER_TOKEN)}, json={"title": "updated test"})
+        data = json.loads(res.data)
         self.assertEqual(res.status_code, 200)
-        self.assertEqual(data['success'], True)
-        self.assertEqual(data['deleted'], to_be_deleted_question.id)
-        self.assertEqual(question, None)
+        self.assertEqual(data["success"], True)
 
-    def test_404_send_no_id(self):
-        res = self.client().delete('/questions/')
+    def test_update_unauthorized_movie(self):
+        res = self.client().patch('/movies/9',
+                                  headers={'Authorization': 'Bearer {}'.format(CASTING_ASSISTANT_TOKEN)}, json={"title": "updated test"})
+        data = json.loads(res.data)
+        self.assertEqual(res.status_code, 403)
+        self.assertEqual(data["success"], False)
+        self.assertEqual(data['message'], 'Permission not found.')
+
+    def test_404_not_existing_update_movie(self):
+        res = self.client().patch('/movies/9999',
+                                  headers={'Authorization': 'Bearer {}'.format(EXECUTIVE_PRODUCER_TOKEN)}, json=DUMMY_MOVIE)
         data = json.loads(res.data)
         self.assertEqual(res.status_code, 404)
-        self.assertEqual(data['success'], False)
+        self.assertEqual(data["success"], False)
         self.assertEqual(data['message'], 'resource not found')
 
-    def test_new_game(self):
-        res = self.client().post(
-            '/newgame', json={"previous_questions": [], "quiz_category": {"id": 3}})
+    def test_update_actor(self):
+        res = self.client().patch('/actors/11',
+                                  headers={'Authorization': 'Bearer {}'.format(EXECUTIVE_PRODUCER_TOKEN)}, json={"name": "updated test"})
         data = json.loads(res.data)
         self.assertEqual(res.status_code, 200)
-        self.assertEqual(data['success'], True)
-        self.assertIsNotNone(data['question'])
-        self.assertEqual(data['question']['category'], 3)
+        self.assertEqual(data["success"], True)
 
-    def test_404_send_no_previous_key(self):
-        res = self.client().post('/quizzes', json={"quiz_category": {"id": 3}})
+    def test_update_unauthorized_actor(self):
+        res = self.client().patch('/actors/11',
+                                  headers={'Authorization': 'Bearer {}'.format(CASTING_ASSISTANT_TOKEN)}, json={"name": "updated test"})
+        data = json.loads(res.data)
+        self.assertEqual(res.status_code, 403)
+        self.assertEqual(data["success"], False)
+        self.assertEqual(data['message'], 'Permission not found.')
+
+    def test_404_not_existing_update_actor(self):
+        res = self.client().patch('/actors/9999',
+                                  headers={'Authorization': 'Bearer {}'.format(EXECUTIVE_PRODUCER_TOKEN)}, json=DUMMY_ACTOR)
         data = json.loads(res.data)
         self.assertEqual(res.status_code, 404)
         self.assertEqual(data["success"], False)
-        self.assertEqual(data["message"], "resource not found")
+        self.assertEqual(data['message'], 'resource not found')
+
+    def test_delete_movie(self):
+        res = self.client().delete('/movies/13',
+                                   headers={'Authorization': 'Bearer {}'.format(EXECUTIVE_PRODUCER_TOKEN)})
+        data = json.loads(res.data)
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(data["success"], True)
+
+    def test_delete_unauthorized_movie(self):
+        res = self.client().delete('/movies/9',
+                                   headers={'Authorization': 'Bearer {}'.format(CASTING_ASSISTANT_TOKEN)})
+        data = json.loads(res.data)
+        self.assertEqual(res.status_code, 403)
+        self.assertEqual(data["success"], False)
+        self.assertEqual(data['message'], 'Permission not found.')
+
+    def test_404_not_existing_delete_movie(self):
+        res = self.client().delete('/movies/9999',
+                                   headers={'Authorization': 'Bearer {}'.format(EXECUTIVE_PRODUCER_TOKEN)})
+        data = json.loads(res.data)
+        self.assertEqual(res.status_code, 404)
+        self.assertEqual(data["success"], False)
+        self.assertEqual(data['message'], 'resource not found')
+
+    def test_delete_actor(self):
+        res = self.client().delete('/actors/12',
+                                   headers={'Authorization': 'Bearer {}'.format(CASTING_DIRECTOR_TOKEN)})
+        data = json.loads(res.data)
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(data["success"], True)
+
+    def test_delete_unauthorized_actor(self):
+        res = self.client().delete('/actors/13',
+                                   headers={'Authorization': 'Bearer {}'.format(CASTING_ASSISTANT_TOKEN)})
+        data = json.loads(res.data)
+        self.assertEqual(res.status_code, 403)
+        self.assertEqual(data["success"], False)
+        self.assertEqual(data['message'], 'Permission not found.')
+
+    def test_404_not_existing_delete_actor(self):
+        res = self.client().delete('/actors/9999',
+                                   headers={'Authorization': 'Bearer {}'.format(EXECUTIVE_PRODUCER_TOKEN)})
+        data = json.loads(res.data)
+        self.assertEqual(res.status_code, 404)
+        self.assertEqual(data["success"], False)
+        self.assertEqual(data['message'], 'resource not found')
 
 
 # Make the tests conveniently executable
