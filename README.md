@@ -1,6 +1,7 @@
 # Casting Agency API 
 
 ## Simple Information About the App
+* deployed link : https://hbs-casting-agency.herokuapp.com/
 * This is an api that was made for a casting agency , with all endpoints authenticated with auth0.
 * There are 2 main endpoints `/moivs` and `/actors`.
 * This api demonestrate the full CRUD operations.
