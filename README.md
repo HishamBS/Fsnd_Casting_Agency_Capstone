@@ -17,7 +17,7 @@ the api , all passwords are : `Aa@12345`
   
     `Can view actors and movies`
 
-* **Casting Director** _casting_directorr@casting-agency.com_
+* **Casting Director** _casting_director@casting-agency.com_
   
     `1.All permissions a Casting Assistant has`
 
