@@ -1,0 +1,29 @@
+<html>
+  <head>
+    <title>Token Page</title>
+    <style>
+      textarea {
+        text-align: justify;
+        width: 694px;
+        height: 108px;
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      window.onload = () => {
+        const query = window.location.href;
+        const link = query.split("#")[1];
+        const access_token = link.split("?")[0];
+        const token = access_token.split("=")[1].split("&")[0];
+        let div = document.querySelector("div");
+        let token_tag = document.createElement("TEXTAREA");
+        token_tag.innerText = token;
+        div.appendChild(token_tag);
+      };
+    </script>
+    <div id="token_div">
+      <h1>your token is :</h1>
+    </div>
+  </body>
+</html>
