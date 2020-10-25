@@ -4,8 +4,8 @@
 * deployed link : https://hbs-casting-agency.herokuapp.com/
 * This is an api that was made for a casting agency , with all endpoints authenticated with auth0.
 * There are 2 main endpoints `/moivs` and `/actors`.
-* This api demonestrate the full CRUD operations.
-* To get authenticated , navigate to the home end point `/` and click on the authentaction button , which will redirect you to the auth0
+* This api demonestrate the full CRUD operations on those endpoints.
+* To get authenticated , navigate to the home end point `/` and click on the authentication button , which will redirect you to the auth0
 website to either sign in , or sign up with a new account. once authenticated you will be redirected to a page which will show you the 
 generated token to be used with the REST calls.
 * A post man collection can be found in the root of this repo , which can be used to test and access all end points.
